@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <Head>
+    <title>Flip a coin</title>
+  </Head>
+  <body>
+    <button onclick=
+    "flipACoin('Heads');"
+    >Heads</button>
+
+    <button onclick=
+    "flipACoin('Tails');"
+    >Tails</button>
+
+    <button onclick="
+    score.wins = 0;
+    score.losess = 0;
+    localStorage.removeItem('score');
+    alert('Score has been reset.');
+    
+    ">Reset score</button>
+  
+    <script>
+      let score = JSON.parse(localStorage.getItem('score')) || {
+        wins: 0,
+        losess: 0
+      };
+
+      function flipACoin(guess) {
+      const randomNumber = Math.random();
+
+      const computerMove = randomNumber < 0.5 ? 'Heads' : 'Tails';
+
+
+        if ( guess === computerMove) {
+          score.wins++
+        } else {
+          score.losess++ 
+        }
+        
+
+        let result ='';
+        if(guess === 'Heads') {
+          if (computerMove === 'Tails')  {
+            result = 'You lose!'
+          } else if (computerMove === 'Heads') {
+            result = 'You win!'
+          }
+          } else if(guess === 'Tails') {
+          if (computerMove === 'Heads')  {
+            result = 'You lose!'
+          } else if (computerMove === 'Tails') {
+            result = 'You win!'
+          }
+        }
+          
+        alert(`You picked ${guess}. Coin is ${computerMove}. ${result}
+Wins: ${score.wins}, Losess: ${score.losess}.`)
+
+        localStorage.setItem('score', JSON.stringify(score))
+      }
+    </script>
+
+  </body>
+</html>
